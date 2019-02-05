@@ -1,46 +1,43 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
-long generateNextPrime(vector<long> primes) {
-    long next = primes.at(primes.size() -1);
-    bool looking = true;
-    while(looking) {
-        looking = false;
-        next++;
-        for(auto prime : primes) {
-            if(next % prime == 0) {
-                looking = true;
-                break;
-            }
+long findLargestPrimeFactor(long n) {
+    long largestPrime = 2;
+    
+    while(n % 2 == 0) {
+        n /= 2;
+    }
+
+    int i;
+    for(i = 3; i < sqrt(n); i += 2) {
+        while(n % i == 0) {
+            n /= i;
+            largestPrime = i;
         }
     }
-    return next;
+    while (n % i == 0) {
+        n /= i;
+        largestPrime = i;
+    }
+        
+    return n > 2 ? n : largestPrime;
+    
 }
 
 int main(){
     int t;
     cin >> t;
     
-    for(int a0 = 0; a0 < t; a0++){
+    for(int a0 = 2; a0 < t; a0++){
         long n;
-        cin >> n;
+        // cin >> n;
+        n = a0;
         
-        vector<long> primes;
-        primes.push_back(2);
-        
-        long ans = 0;
-        
-        while(primes.at(primes.size() - 1) < n) {
-            long nextPrime = generateNextPrime(primes);
-            primes.push_back(nextPrime);
-            
-            if(n % nextPrime == 0) 
-                ans = nextPrime;
-        }
-        
-        cout << ans << "\n";
+        long ans = findLargestPrimeFactor(n);
+        cout << n << ": " << ans << "\n";
         
     }
     return 0;
