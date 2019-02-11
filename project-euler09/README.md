@@ -1,1 +1,1 @@
-# Project Euler #9: 
+# Project Euler #9: Special Pythagorean triplet
